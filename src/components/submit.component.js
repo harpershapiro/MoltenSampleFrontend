@@ -7,14 +7,14 @@ export default class Submit extends Component {
         super(props);
 
         this.state = {
+            didUpload: false,
             fileURL: '',
         };
 
         this.handleUploadFile = this.handleUploadFile.bind(this);
     }
 
-    //should 
-    handleUploadFile(ev) { // where does ev come from
+    handleUploadFile(ev) { 
         ev.preventDefault();
 
         const data = new FormData();
@@ -27,14 +27,12 @@ export default class Submit extends Component {
             body: data,
         }).then((response) => {
             response.json().then((body) => {
-                this.setState({ fileURL: `http://localhost:${BACK_PORT}/${body.file}` })
+                console.log("setting state fileURL to" + `http://localhost:${BACK_PORT}/${body.file}`);
+                this.setState({ didUpload: true,
+                                fileURL: `http://localhost:${BACK_PORT}/${body.file}` })
             });
         });
     }
-
-
-
-
 
 
     render(){
@@ -52,7 +50,9 @@ export default class Submit extends Component {
                 <div>
                     <button>Upload</button>
                 </div>
-                    {this.state.fileURL}
+                <div>
+                    {this.state.didUpload ? this.state.fileURL : ''}
+                </div>
                 </form>
             </div>
         );
