@@ -12,6 +12,10 @@ export default class Submission extends Component {
             <tr>              
                     <td>{this.props.sub.submission_title}</td>
                     <td>{this.props.sub.submission_desc}</td>
+                    <td>{this.props.sub.submission_pack_url}</td>
+                    <td>{this.props.sub.submission_img_url}</td>
+                    <td>{this.props.sub.submission_user}</td>
+                    <td>{this.props.sub.submission_date}</td>
             </tr>
         );
     }

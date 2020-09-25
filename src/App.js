@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 //Main Components
 import Home from "./components/home.component.js";
-import Submit from "./components/submit.component.js";
+import SubmitPage from "./components/submitPage.component.js";
 import SubmissionList from "./components/submissionList.component.js";
 import About from "./components/about.component.js";
 
@@ -30,7 +30,7 @@ class App extends Component {
             </Link>
           </nav>
           <Route path="/" exact component={Home}/>
-          <Route path="/submit" component={Submit}/>
+          <Route path="/submit" component={SubmitPage}/>
           <Route path="/submissionList" component={SubmissionList}/>
           <Route path="/about" component={About}/>
         </div>

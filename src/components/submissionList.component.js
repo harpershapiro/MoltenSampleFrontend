@@ -11,7 +11,7 @@ export default class SubmissionList extends Component {
     }
 
     componentDidMount(){
-        axios.get(`http://localhost:${BACK_PORT}/molten/`)
+        axios.get(`http://localhost:${BACK_PORT}/molten/submissions`)
             .then(res => {
                 this.setState({submissions: res.data});
             })
