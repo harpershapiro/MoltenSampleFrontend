@@ -70,7 +70,8 @@ export default class SubmitPage extends Component {
                 console.log("setting state fileURL to" + `http://localhost:${BACK_PORT}/${body.file}`);
                 this.setState({ ...this.state,
                                 didUpload: true, //may not need this
-                                submission_pack_url: `http://localhost:${BACK_PORT}/packs/${body.file}`,
+                                //submission_pack_url: `http://localhost:${BACK_PORT}/${body.file}`,
+                                submission_pack_url: `${body.file}`,
                                 submission_img_url: 'default',
                                 submission_user: 'default',
                                 submission_date: 'default'
@@ -84,17 +85,13 @@ export default class SubmitPage extends Component {
             response.json().then((body) => {
                 this.setState({ 
                     //...this.state,
-                    submission_img_url: `http://localhost:${BACK_PORT}/images/${body.file}`
+                    //submission_img_url: `http://localhost:${BACK_PORT}/${body.file}`
+                    submission_img_url: `${body.file}`
                 });
                 //submit to db
                 this.addSubToDB(); 
             });
         }))
-
-        //console.log("ABOUT TO PUSH TO DB");
-        //also resets state
-        //redirect home. TODO: add a confirmation message
-        
 
     }
 
