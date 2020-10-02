@@ -4,6 +4,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// //dummy test user
+// const user = {
+//   roles: ['user']
+// };
+// //dummy test admin
+// const admin = {
+//   roles: ['user','admin']
+// };
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -24,6 +24,7 @@ export default class SubmitPage extends Component {
         this.addSubToDB = this.addSubToDB.bind(this);
     }
 
+    //uploads submitted file to backend uploads/packs or uploads/images
     handleUploadFile(ev) { 
         ev.preventDefault();
 
@@ -34,15 +35,6 @@ export default class SubmitPage extends Component {
         const packData = new FormData();
         const imgData = new FormData();
 
-
-        //console.log(this.packUploadInput.files[0]);
-        //get file types TODO: restrict them
-        
-        /*
-        (async () => {
-            console.log(await FileType.fromFile(this.packUploadInput.files[0].name));
-            console.log(await FileType.fromFile(this.imgUploadInput.files[0].name));
-        })();*/
 
         //get extensions of each upload - works as long as the file actually has a '.ext'
         let packExt = this.packUploadInput.files[0].name.split('.').slice(-1)[0];
@@ -95,6 +87,7 @@ export default class SubmitPage extends Component {
 
     }
 
+    //submit to db, reset state, redirect to home
     addSubToDB(){
         const newSubmission = {
             submission_pack_url: this.state.submission_pack_url,

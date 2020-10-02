@@ -25,12 +25,6 @@ export default class SubmissionList extends Component {
             })
     }
 
-    // getImageUrls(){
-    //     this.state.submissions.map(function(currentSub,i){
-    //         console.log(`Filling img url: ${currentSub.submission_img_url}`);
-    //         this.state.images[i]=currentSub.submission_img_url;
-    //     })
-    // }
 
     submissionList(){
         var history = this.props.history;
