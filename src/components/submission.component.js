@@ -12,7 +12,7 @@ export default class Submission extends Component {
         this.state = {imageUrl: ''}
         this.fetchImage = this.fetchImage.bind(this);
         this.makePost = this.makePost.bind(this);
-        this.addPostToDB = this.addPostToDB.bind(this);
+        this.deleteSub = this.deleteSub.bind(this);
 
         
 
@@ -63,9 +63,18 @@ export default class Submission extends Component {
 
     }
 
-    addPostToDB(){
-
+    deleteSub(){
+        const subId = this.props.sub._id;
+        //TODO: CONFIRM WINDOW
+        axios.delete(`http://localhost:${BACK_PORT}/molten/submissions/delete/${subId}`)
+            .then((res)=>{
+                this.props.submissionDeleted(subId);
+            })
     }
+
+    // addPostToDB(){
+
+    // }
 
 
     render(){
@@ -74,7 +83,10 @@ export default class Submission extends Component {
         return(
             <div>
             <tr>    
-                    <td><button onClick={this.makePost}>Post</button></td>          
+                    <td>
+                        <button onClick={this.makePost}>Post</button>
+                        <button onClick={this.deleteSub}>Delete</button>
+                    </td>          
                     <td>{this.props.sub.submission_title}</td>
                     <td>{this.props.sub.submission_desc}</td>
                     <td>{this.props.sub.submission_pack_url}</td>

@@ -10,6 +10,8 @@ export default class Home extends Component {
 
         this.state = { posts: [] }
                       //images: []  };
+        this.postDeleted = this.postDeleted.bind(this);
+
     }
 
     componentDidMount(){
@@ -24,9 +26,23 @@ export default class Home extends Component {
             })
     }
 
+    postDeleted(postId){
+        //update state: delete item from posts with id postId
+        var oldPosts = this.state.posts;
+        var newPosts = oldPosts.filter(post=>{
+            if(post._id == postId){
+                return false;
+            } else {
+                return true;
+            }
+        });
+        this.setState({posts: newPosts});
+    }
+
     postList(){
+        var postDeleted = this.postDeleted;
         return this.state.posts.map(function(currentPost, i){
-            return <Post post={currentPost} key={i}/>
+            return <Post post={currentPost} key={i} postDeleted={postDeleted}/>
         })
     }
 

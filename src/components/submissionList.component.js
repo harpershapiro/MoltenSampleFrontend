@@ -10,6 +10,8 @@ export default class SubmissionList extends Component {
         this.state = {submissions: [],
                       images: []   
         };
+
+        this.submissionDeleted = this.submissionDeleted.bind(this);
     }
 
     componentDidMount(){
@@ -25,11 +27,25 @@ export default class SubmissionList extends Component {
             })
     }
 
+    submissionDeleted(subId){
+        //update state: delete item from posts with id postId
+        var oldSubs = this.state.submissions;
+        var newSubs = oldSubs.filter(sub=>{
+            if(sub._id == subId){
+                return false;
+            } else {
+                return true;
+            }
+        });
+        this.setState({submissions: newSubs});
+    }
+
 
     submissionList(){
+        var submissionDeleted = this.submissionDeleted;
         var history = this.props.history;
         return this.state.submissions.map(function(currentSub, i){
-            return <Submission sub={currentSub} key={i} history={history}/>
+            return <Submission sub={currentSub} key={i} history = {history} submissionDeleted={submissionDeleted}/>
         })
     }
 

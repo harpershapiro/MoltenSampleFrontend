@@ -15,6 +15,11 @@ export default class Login extends Component {
         }
 
         //this.toggleMode = this.toggleMode.bind(this);
+        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+
 
     }
 
@@ -53,14 +58,37 @@ export default class Login extends Component {
     //     )
     // }
 
-    handleSubmit(){
+    onChangePassword(e){
+        this.setState({
+            password: e.target.value
+        });
+    }
+
+    onChangeUsername(e){
+        this.setState({
+            username: e.target.value
+        });
+    }
+
+    handleSubmit(ev){
         //api will handle hashing
+        ev.preventDefault();
+        //VERSION FOR DB
+        // const newSignup= {
+        //     username: this.state.username,
+        //     password: this.state.password,
+        // }
+        //VERSION FOR TEST
         const newSignup= {
-            username: this.state.username,
-            password: this.state.password
+            user_name: this.state.username,
+            //user_pass: this.state.password,
+            user_roles: ['user']
         }
 
         //TODO: Post to /users/sign-up
+        console.log("about to login user");
+        this.props.loginUser(newSignup);
+        this.props.history.push('/'); //need to be async??
     }
 
     render(){
@@ -71,25 +99,36 @@ export default class Login extends Component {
                         <label htmlFor="username" className="mb-1 text-muted">
                                 Username
                         </label>
-                        <input type="text" name="username" id="username" value={this.state.username} className="form-control rounded-0" required minLength="5" />
+                        <input  type="text" 
+                                name="username" 
+                                id="username" 
+                                onChange={this.onChangeUsername}
+                                value={this.state.username} 
+                                className="form-control rounded-0" 
+                                required minLength="5" />
                         
                     </div>
                     <div className = "form-group">
                         <label htmlFor="password" className="mb-1 text-muted">
                                 Password
                         </label>
-                        <input type="text" name="password" id="password" value={this.state.password} className="form-control rounded-0" required minLength="5" />
+                        <input  type="text" 
+                                name="password" 
+                                id="password" 
+                                onChange={this.onChangePassword}
+                                value={this.state.password} 
+                                className="form-control rounded-0" 
+                                required minLength="5" />
                     </div>
 
-                    <button className="btn btn-brand text-light float-right border-0 rounded-pill">{this.props.type == 'signup' ? "Sign Up" : "Login"}</button>
-						{this.props.backMethod &&
-							<button
-								onClick={this.props.backMethod}
-								type="button"
-								className="btn btn-brand-secondary text-white float-right border-0 rounded-pill mx-3">
-								Go back
-							</button>
-                        }
+                    <label htmlFor="password" className="mb-1 text-muted">Submit</label>
+                    <div className="form-group">
+                        <input type="submit" value="Submit" className="btn btn-primary"></input>
+                    </div>
+                    <button className="btn btn-brand text-light float-right border-0 rounded-pill">jhvjfjh{this.props.type === 'signup' ? "Sign Up" : "Login"}</button>
+						
+							
+                        
                 </form>
             </div>
         )

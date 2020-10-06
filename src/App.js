@@ -30,11 +30,16 @@ class App extends Component {
         user_roles: ['user','admin']
       }
     }
+
+    this.loginUser=this.loginUser.bind(this);
+
   }
 
-  // loginUser(user){
-  //   this.setState({user: user});
-  // }
+  loginUser(user){
+    this.setState({user: user});
+    //console.log(`Username: ${user.username} Password: ${user.password}`)
+    //this.props.history.push('/')
+  }
 
   render() {
     return(
@@ -54,14 +59,16 @@ class App extends Component {
               About
             </Link>
             <Link to="/login">
-              Login
+              Login/Signup
             </Link>
           </nav>
           <Route path="/" exact component={Home}/>
           <Route path="/submit" component={SubmitPage}/>
           <Route path="/submissionList" component={SubmissionList}/>
           <Route path="/about" component={About}/>
-          <Route path="/login" component={Login}/>
+          <Route path="/login" render={(props)=>(
+            <Login {...props} type='signup' loginUser={this.loginUser}/>
+          )} />
 
         </div>
         <div>
