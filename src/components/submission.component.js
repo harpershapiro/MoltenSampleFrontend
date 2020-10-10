@@ -33,7 +33,6 @@ export default class Submission extends Component {
                 //console.log(`ImageData: ${res.data} `)
                 //var file = new File( res.data, "image", { type: "image/jpeg" } );
                 var localImageUrl = URL.createObjectURL(res.data);
-                console.log(`about to return image tag at ${localImageUrl}` )
                 //return (<img src={imageUrl} />);
                 //return imageUrl; 
                 this.setState({imageUrl: localImageUrl});          
@@ -79,7 +78,6 @@ export default class Submission extends Component {
 
     render(){
         //var imageUrl=this.fetchImage(this.props.sub.submission_img_url);
-        console.log(`imageUrl: ${this.state.imageUrl}`)
         return(
             <div>
             <tr>    

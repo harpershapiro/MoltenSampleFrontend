@@ -11,6 +11,7 @@ export default class Home extends Component {
         this.state = { posts: [] }
                       //images: []  };
         this.postDeleted = this.postDeleted.bind(this);
+        this.postList = this.postList.bind(this);
 
     }
 
@@ -41,8 +42,9 @@ export default class Home extends Component {
 
     postList(){
         var postDeleted = this.postDeleted;
+        var user = this.props.user;
         return this.state.posts.map(function(currentPost, i){
-            return <Post post={currentPost} key={i} postDeleted={postDeleted}/>
+            return <Post post={currentPost} key={i} postDeleted={postDeleted} user={user}/>
         })
     }
 

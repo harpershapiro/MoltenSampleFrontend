@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -11,6 +11,13 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+} */
+
+
+body{
+  padding-left:3%;
+  padding-right:3%;
+  background-color:whitesmoke;
 }
 
 .App-header {
@@ -28,6 +35,11 @@
   color: #61dafb;
 }
 
+.title-text{
+  font-family: 'Nanum Gothic Coding', monospace;  
+
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +47,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.logo {
+  height:110px;
+  padding-right:3%;
+  padding-bottom:3%;
+  padding-top:3%;
 }

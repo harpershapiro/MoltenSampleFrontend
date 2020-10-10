@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {userContext} from "../userContext.js";
+
 const FileType = require('file-type');
 const BACK_PORT = 4000;
 
@@ -13,16 +15,25 @@ export default class SubmitPage extends Component {
             submission_pack_url: '',
             submission_img_url: '',
             submission_title: '',
-            submission_user: '',
+            submission_user: this.props.user.user_name,
             submission_date: '',
             submission_desc: '',
         };
+
+
+
+        //set user
 
         this.onChangeSubmissionTitle = this.onChangeSubmissionTitle.bind(this);
         this.onChangeSubmissionDesc = this.onChangeSubmissionDesc.bind(this);
         this.handleUploadFile = this.handleUploadFile.bind(this);
         this.addSubToDB = this.addSubToDB.bind(this);
+        //this.getUserFromContext = this.getUserFromContext.bind(this);
     }
+
+    // componentDidMount(){
+    //     this.getUserFromContext();
+    // }
 
     //uploads submitted file to backend uploads/packs or uploads/images
     handleUploadFile(ev) { 
@@ -65,8 +76,7 @@ export default class SubmitPage extends Component {
                                 //submission_pack_url: `http://localhost:${BACK_PORT}/${body.file}`,
                                 submission_pack_url: `${body.file}`,
                                 submission_img_url: 'default',
-                                submission_user: 'default',
-                                submission_date: 'default'
+                                submission_date: Date.now()
                             });
             });
         }) //upload image
@@ -118,6 +128,16 @@ export default class SubmitPage extends Component {
             });
     }
 
+    // getUserFromContext(){
+    //     return(
+    //         <userContext.Consumer>
+    //             {ctx=> (
+    //                 this.setState({submission_user: ctx.user.user_name})
+    //             )}
+    //         </userContext.Consumer>
+    //     )
+    // }
+
     onChangeSubmissionTitle(e){
         this.setState({
             submission_title: e.target.value
@@ -131,7 +151,9 @@ export default class SubmitPage extends Component {
     }
 
 
+
     render(){
+        //this.getUserFromContext();
         return (
             <div>
                 <h1> Submit </h1>
@@ -166,6 +188,7 @@ export default class SubmitPage extends Component {
                         <input type="submit" value="Submit" className="btn btn-primary"></input>
                     </div>
                 </form>
+
             </div>
         );
     }
