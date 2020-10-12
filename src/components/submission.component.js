@@ -9,7 +9,8 @@ export default class Submission extends Component {
 
         //var localImageUrl = this.fetchImage(this.props.sub.submission_img_url);
         //console.log(`local image url: ${localImageUrl}`)
-        this.state = {imageUrl: ''}
+        this.state = {imageUrl: '',
+                        packUrl: ''}
         this.fetchImage = this.fetchImage.bind(this);
         this.makePost = this.makePost.bind(this);
         this.deleteSub = this.deleteSub.bind(this);
@@ -20,14 +21,14 @@ export default class Submission extends Component {
     }
 
     componentDidMount(){
-        this.fetchImage(this.props.sub.submission_img_url);
+        this.fetchImage((this.props.sub.submission_url).concat('.',this.props.sub.img_ext));
     }
 
         //refactor to a new js file if this is working
     fetchImage(urlFromSub) {
             //const imageName = 'daffycolorado.JPG'
-            const imageName = urlFromSub.split('/').slice(-1)[0];
-            const url = `http://localhost:${BACK_PORT}/fetchImage/${imageName}`
+            //const imageName = urlFromSub.split('/').slice(-1)[0];
+            const url = `http://localhost:${BACK_PORT}/molten/files/fetchImage/${urlFromSub}`
             axios.get(url, {responseType: 'blob'})
             .then(res => {
                 //console.log(`ImageData: ${res.data} `)
@@ -40,10 +41,13 @@ export default class Submission extends Component {
         }
 
     makePost(e){
+        var date = Date.now();
         const newPost = {
-            post_pack_url: this.props.sub.submission_pack_url,
-            post_img_url: this.props.sub.submission_img_url,
-            post_date: "default",
+            post_url: this.props.sub.submission_url,
+            //post_img_url: this.props.sub.submission_img_url,
+            img_ext: this.props.sub.img_ext,
+            pack_ext: this.props.sub.pack_ext,
+            post_date: date,
             post_submitter: this.props.sub.submission_user,
             post_accepter: "default",
             post_title: this.props.sub.submission_title,
@@ -59,6 +63,7 @@ export default class Submission extends Component {
                         this.props.history.push('/');
                     })
             });
+        
 
     }
 
@@ -87,8 +92,9 @@ export default class Submission extends Component {
                     </td>          
                     <td>{this.props.sub.submission_title}</td>
                     <td>{this.props.sub.submission_desc}</td>
-                    <td>{this.props.sub.submission_pack_url}</td>
-                    <td>{this.props.sub.submission_img_url}</td>
+                    <td>{this.props.sub.submission_url}</td>
+                    <td>{this.props.sub.img_ext}</td>
+                    <td>{this.props.sub.pack_ext}</td>
                     <td>{this.props.sub.submission_user}</td>
                     <td>{this.props.sub.submission_date}</td>
                     <img style={{height:"300px"}} src={this.state.imageUrl} />

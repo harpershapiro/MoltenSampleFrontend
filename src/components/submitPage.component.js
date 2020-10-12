@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {userContext} from "../userContext.js";
+var md5 = require('md5')
 
 const FileType = require('file-type');
 const BACK_PORT = 4000;
@@ -11,9 +12,9 @@ export default class SubmitPage extends Component {
         super(props);
 
         this.state = {
-            didUpload: false,
-            submission_pack_url: '',
-            submission_img_url: '',
+            submission_url: '',
+            img_ext: '',
+            pack_ext: '',
             submission_title: '',
             submission_user: this.props.user.user_name,
             submission_date: '',
@@ -53,12 +54,20 @@ export default class SubmitPage extends Component {
 
         console.log(packExt);
         console.log(imgExt);
+        this.setState({...this.state,
+            img_ext: `${imgExt}`,
+            pack_ext: `${packExt}`
+        })
+        var date = Date.now();
+        var filename = md5(date.toString());
+        
+
         
 
         packData.append('file', this.packUploadInput.files[0]);
-        packData.append('filename', `packs/${this.state.submission_title}.${packExt}`);
+        packData.append('filename', `packs/${filename}.${packExt}`);
         imgData.append('file',this.imgUploadInput.files[0]);
-        imgData.append('filename', `images/${this.state.submission_title}.${imgExt}`);
+        imgData.append('filename', `images/${filename}.${imgExt}`);
 
 
         //CONVERT ALL THIS CODE WITH ASYNC/AWAIT
@@ -70,13 +79,11 @@ export default class SubmitPage extends Component {
             body: packData,
         }).then((response) => {
             response.json().then((body) => {
-                console.log("setting state fileURL to" + `http://localhost:${BACK_PORT}/${body.file}`);
+                //let date = Date.now();
                 this.setState({ ...this.state,
-                                didUpload: true, //may not need this
                                 //submission_pack_url: `http://localhost:${BACK_PORT}/${body.file}`,
-                                submission_pack_url: `${body.file}`,
-                                submission_img_url: 'default',
-                                submission_date: Date.now()
+                                submission_url: filename,
+                                submission_date: date
                             });
             });
         }) //upload image
@@ -85,11 +92,11 @@ export default class SubmitPage extends Component {
             body: imgData,
         }).then((response) => {
             response.json().then((body) => {
-                this.setState({ 
-                    //...this.state,
-                    //submission_img_url: `http://localhost:${BACK_PORT}/${body.file}`
-                    submission_img_url: `${body.file}`
-                });
+                // this.setState({ 
+                //     //...this.state,
+                //     //submission_img_url: `http://localhost:${BACK_PORT}/${body.file}`
+                //     submission_img_url: `${body.file}`
+                // });
                 //submit to db
                 this.addSubToDB(); 
             });
@@ -100,8 +107,10 @@ export default class SubmitPage extends Component {
     //submit to db, reset state, redirect to home
     addSubToDB(){
         const newSubmission = {
-            submission_pack_url: this.state.submission_pack_url,
-            submission_img_url: this.state.submission_img_url,
+            submission_url: this.state.submission_url,
+            //submission_img_url: this.state.submission_img_url,
+            img_ext: this.state.img_ext,
+            pack_ext: this.state.pack_ext,
             submission_title: this.state.submission_title,
             submission_user: this.state.submission_user,
             submission_date: this.state.submission_date,
@@ -115,9 +124,10 @@ export default class SubmitPage extends Component {
                 //AFTER DB UPLOAD
                 console.log(res.data)
                 this.setState({
-                    didUpload: false,
-                    submission_pack_url: '',
-                    submission_img_url: '',
+                    submission_url: '',
+                    //submission_img_url: '',
+                    img_ext: '',
+                    pack_ext: '',
                     submission_title: '',
                     submission_user: '',
                     submission_date: '',

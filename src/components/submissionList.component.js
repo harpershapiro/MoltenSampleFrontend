@@ -28,7 +28,7 @@ export default class SubmissionList extends Component {
     }
 
     submissionDeleted(subId){
-        //update state: delete item from posts with id postId
+        //update state: delete item from subs with id subId
         var oldSubs = this.state.submissions;
         var newSubs = oldSubs.filter(sub=>{
             if(sub._id == subId){

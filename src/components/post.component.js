@@ -9,7 +9,8 @@ export default class Post extends Component {
     constructor(props){
         super(props);
 
-        this.state={imageUrl: ''}
+        this.state={imageUrl: '',
+                    packUrl: ''}
 
         this.deletePost=this.deletePost.bind(this);
     }
@@ -19,13 +20,16 @@ export default class Post extends Component {
     }
 
     componentDidMount(){
-        this.fetchImage(this.props.post.post_img_url);
+        this.fetchImage(this.props.post.post_url.concat('.',this.props.post.img_ext));
+        //set full pack url
+        let fullPackUrl = this.props.post.post_url.concat('.',this.props.post.pack_ext);
+        this.setState({packUrl: fullPackUrl});
     }
 
     fetchImage(urlFromPost) {
         //const imageName = 'daffycolorado.JPG'
         const imageName = urlFromPost.split('/').slice(-1)[0];
-        const url = `http://localhost:${BACK_PORT}/fetchImage/${imageName}`
+        const url = `http://localhost:${BACK_PORT}/molten/files/fetchImage/${imageName}`
         axios.get(url, {responseType: 'blob'})
         .then(res => {
             //console.log(`ImageData: ${res.data} `)
@@ -55,7 +59,7 @@ export default class Post extends Component {
                 <p>{this.props.post.post_desc}</p>
                 <img src={this.state.imageUrl}></img>
                 {isAuth(this.props.user) && hasRole(this.props.user,['admin']) && <button onClick={this.deletePost}>Delete</button>}
-                <DownloadButton fileUrl={this.props.post.post_pack_url} fileName={this.props.post.post_title} />
+                <DownloadButton fileUrl={this.state.packUrl} fileName={this.props.post.post_title.concat('.',this.props.post.pack_ext)} />
             </div>
         );
     }
