@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-const BACK_PORT = 4000
+require('dotenv/config');
+
+const API_PATH = process.env.API_PATH
 
 export default class Submission extends Component {
     constructor(props){
@@ -28,7 +30,7 @@ export default class Submission extends Component {
     fetchImage(urlFromSub) {
             //const imageName = 'daffycolorado.JPG'
             //const imageName = urlFromSub.split('/').slice(-1)[0];
-            const url = `http://localhost:${BACK_PORT}/molten/files/fetchImage/${urlFromSub}`
+            const url = API_PATH.concat(`/files/fetchImage/${urlFromSub}`);
             axios.get(url, {responseType: 'blob'})
             .then(res => {
                 //console.log(`ImageData: ${res.data} `)
@@ -54,11 +56,11 @@ export default class Submission extends Component {
             post_desc: this.props.sub.submission_desc
         }        
 
-        axios.post(`http://localhost:${BACK_PORT}/molten/posts/add`,newPost)
+        axios.post(API_PATH.concat('/posts/add'),newPost)
             .then((res)=>{
                 const oldSubId = this.props.sub._id;
                 //console.log(`${oldSubId}`);
-                axios.delete(`http://localhost:${BACK_PORT}/molten/submissions/delete/${oldSubId}`)
+                axios.delete(API_PATH.concat(`/submissions/delete/${oldSubId}`))
                     .then((res)=>{
                         this.props.history.push('/');
                     })
@@ -70,7 +72,7 @@ export default class Submission extends Component {
     deleteSub(){
         const subId = this.props.sub._id;
         //TODO: CONFIRM WINDOW
-        axios.delete(`http://localhost:${BACK_PORT}/molten/submissions/delete/${subId}`)
+        axios.delete(API_PATH.concat(`/submissions/delete/${subId}`))
             .then((res)=>{
                 this.props.submissionDeleted(subId);
             })

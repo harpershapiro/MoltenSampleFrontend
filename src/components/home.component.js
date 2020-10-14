@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Post from './post.component.js'
 import axios from 'axios';
-const BACK_PORT = 4000;
+require('dotenv/config');
+
+const API_PATH = process.env.API_PATH
 
 export default class Home extends Component {
 
@@ -16,7 +18,7 @@ export default class Home extends Component {
     }
 
     componentDidMount(){
-        axios.get(`http://localhost:${BACK_PORT}/molten/posts`)
+        axios.get(API_PATH.concat('/posts'))
             .then(res => {
                 this.setState({posts: res.data,
                 });

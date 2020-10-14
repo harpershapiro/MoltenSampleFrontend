@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Submission from './submission.component.js'
 import axios from 'axios';
-const BACK_PORT = 4000;
+require('dotenv/config');
+
+const API_PATH = process.env.API_PATH
 
 export default class SubmissionList extends Component {
     constructor(props){
@@ -15,7 +17,7 @@ export default class SubmissionList extends Component {
     }
 
     componentDidMount(){
-        axios.get(`http://localhost:${BACK_PORT}/molten/submissions`)
+        axios.get(API_PATH.concat('/submissions'))
             .then(res => {
                 this.setState({submissions: res.data,
                                images: res.data //makes images array have same length as submissions

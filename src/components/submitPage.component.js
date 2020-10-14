@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {userContext} from "../userContext.js";
 var md5 = require('md5')
+require('dotenv/config');
 
 const FileType = require('file-type');
-const BACK_PORT = 4000;
+const API_PATH = process.env.API_PATH
 
 export default class SubmitPage extends Component {
 
@@ -74,7 +75,7 @@ export default class SubmitPage extends Component {
 
         console.log("fetching upload path");
         //upload sample pack
-        fetch(`http://localhost:${BACK_PORT}/upload`, { 
+        fetch(API_PATH.concat('/files/upload'), {  //TODO: MOVE INTO API
             method: 'POST',
             body: packData,
         }).then((response) => {
@@ -87,7 +88,7 @@ export default class SubmitPage extends Component {
                             });
             });
         }) //upload image
-        .then(() => fetch(`http://localhost:${BACK_PORT}/upload`, { 
+        .then(() => fetch(API_PATH.concat('/files/upload'), {  //TODO: MOVE INTO API
             method: 'POST',
             body: imgData,
         }).then((response) => {

@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {hasRole, isAuth} from "../auth.js";
 import DownloadButton from "./downloadButton.js";
-const BACK_PORT = 4000;
+require('dotenv/config');
+
+const API_PATH = process.env.API_PATH
 
 
 export default class Post extends Component {

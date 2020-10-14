@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
-const BACK_PORT = 4000;
+require('dotenv/config');
 
+const API_PATH = process.env.API_PATH
 
 export default class AuthForm extends Component {
     constructor(props){
@@ -58,7 +59,7 @@ export default class AuthForm extends Component {
 
 
             //add to db
-            axios.post(`http://localhost:${BACK_PORT}/molten/users/sign-up`,userSubmission)
+            axios.post(API_PATH.concat('/users/sign-up'),userSubmission)
             .then((res)=>{
                 //const parsedRes = JSON.parse(res);
                 //console.log(JSON.stringify(res));
@@ -69,7 +70,7 @@ export default class AuthForm extends Component {
             });
         } else {
             console.log("about to login user");
-            axios.post(`http://localhost:${BACK_PORT}/molten/users/sign-in`,userSubmission)
+            axios.post(API_PATH.concat('/users/sign-in'),userSubmission)
             .then((res)=>{
                 console.log(JSON.stringify(res.data.response));
                 this.props.loginUser(res.data.response);
