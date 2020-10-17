@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download'
-require('dotenv/config');
-
-const API_PATH = process.env.API_PATH
+import {API_PATH} from "../config"
 
 export default class DownloadButton extends Component{
     constructor(props){

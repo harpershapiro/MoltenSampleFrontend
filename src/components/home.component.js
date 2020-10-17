@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import Post from './post.component.js'
 import axios from 'axios';
-require('dotenv/config');
+import {API_PATH} from "../config"
+console.log(API_PATH)
+//const API_PATH = (process.env.NODE_ENV==="development" ? DEV_API_PATH : PROD_API_PATH)
 
-const API_PATH = process.env.API_PATH
 
 export default class Home extends Component {
 

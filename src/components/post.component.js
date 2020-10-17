@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {hasRole, isAuth} from "../auth.js";
 import DownloadButton from "./downloadButton.js";
-require('dotenv/config');
-
-const API_PATH = process.env.API_PATH
+import {API_PATH} from "../config"
 
 
 export default class Post extends Component {
@@ -31,7 +29,7 @@ export default class Post extends Component {
     fetchImage(urlFromPost) {
         //const imageName = 'daffycolorado.JPG'
         const imageName = urlFromPost.split('/').slice(-1)[0];
-        const url = `http://localhost:${BACK_PORT}/molten/files/fetchImage/${imageName}`
+        const url = API_PATH.concat(`/files/fetchImage/${imageName}`)
         axios.get(url, {responseType: 'blob'})
         .then(res => {
             //console.log(`ImageData: ${res.data} `)
@@ -47,7 +45,7 @@ export default class Post extends Component {
     deletePost(){
         const postId = this.props.post._id;
         //TODO: CONFIRM WINDOW
-        axios.delete(`http://localhost:${BACK_PORT}/molten/posts/delete/${postId}`)
+        axios.delete(API_PATH.concat(`/posts/delete/${postId}`))
             .then((res)=>{
                 this.props.postDeleted(postId);
             })

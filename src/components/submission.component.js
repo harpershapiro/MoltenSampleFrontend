@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-require('dotenv/config');
-
-const API_PATH = process.env.API_PATH
+import {API_PATH} from "../config"
 
 export default class Submission extends Component {
     constructor(props){

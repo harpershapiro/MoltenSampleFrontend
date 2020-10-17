@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {userContext} from "../userContext.js";
+import {API_PATH} from "../config"
+
 var md5 = require('md5')
-require('dotenv/config');
+
 
 const FileType = require('file-type');
-const API_PATH = process.env.API_PATH
+
 
 export default class SubmitPage extends Component {
 
@@ -120,7 +122,7 @@ export default class SubmitPage extends Component {
 
         console.log(newSubmission);
 
-        axios.post(`http://localhost:${BACK_PORT}/molten/submissions/add`,newSubmission)
+        axios.post(API_PATH.concat('/submissions/add'),newSubmission)
             .then((res)=>{
                 //AFTER DB UPLOAD
                 console.log(res.data)
