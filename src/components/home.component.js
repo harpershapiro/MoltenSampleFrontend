@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import Post from './post.component.js'
 import axios from 'axios';
-//import {API_PATH} from "../config"
-//console.log(API_PATH)
+import {API_PATH} from "../config"
 //const API_PATH = (process.env.NODE_ENV==="development" ? DEV_API_PATH : PROD_API_PATH)
-const API_PATH = (process.env.NODE_ENV==="development" ? "http://localhost:4000/molten" : process.env.API_PATH)
+//const API_PATH = (process.env.NODE_ENV==="development" ? "http://localhost:4000/molten" : process.env.API_PATH)
 
 
 export default class Home extends Component {
