@@ -171,12 +171,12 @@ export default class SubmitPage extends Component {
             <div>
                 <h1> Submit </h1>
                 <form onSubmit={this.handleUploadFile}>
-                    <label>Sample Pack File</label>
+                    <label>Sample Pack File (.zip)</label>
                     <div className="form-group">
                         <input ref={(ref) => {this.packUploadInput = ref;}} type="file" />
                     </div>
 
-                    <label>Image File</label>
+                    <label>Image File (.jpg .png .gif)</label>
                     <div className="form-group">
                         <input ref={(ref) => {this.imgUploadInput = ref;}} type="file" />
                     </div>

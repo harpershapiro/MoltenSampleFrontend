@@ -19,10 +19,13 @@ import AuthForm from "./components/authform.component.js";
 class App extends Component {
   constructor(props){
     super(props);
+    //console.log(JSON.stringify(localStorage.getItem('user')));
+    var lastUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : undefined
+    //this.setState({user: lastUser});
 
     //Currently logged in user
     this.state = {
-      user: undefined
+      user: lastUser
     }
 
     this.loginUser=this.loginUser.bind(this);
@@ -30,10 +33,15 @@ class App extends Component {
 
   }
 
-
+  componentDidMount(){
+    //return last user to their session
+    // var lastUser = localStorage.getItem('user') ? localStorage.getItem('user') : undefined
+    // this.setState({user: lastUser});
+  }
 
   loginUser(user){
     this.setState({user: user});
+    localStorage.setItem('user', JSON.stringify(user))
     console.log(JSON.stringify(this.state.user));
     //console.log(`Username: ${user.username} Password: ${user.password}`)
     //this.props.history.push('/')
