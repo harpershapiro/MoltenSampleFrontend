@@ -14,11 +14,44 @@
 } */
 
 
+
+
 body{
   padding-left:3%;
   padding-right:3%;
   background-color:whitesmoke;
 }
+
+.header{
+  background-image: url("./images/flowinglavabw.gif");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 120px;
+  margin-bottom: 4%;
+}
+
+.card{
+  width: 45%;
+  margin: 2%;
+  display: inline-flex;
+  border-radius: 0px;
+}
+
+.card-img-top{
+  border-radius: 0px;
+}
+
+.post-icon{
+  width:500px;
+  display: flex;
+}
+
+button{
+  margin-top: 3%;
+  width: 150px;
+}
+
+
 
 .App-header {
   background-color: #282c34;
@@ -36,9 +69,13 @@ body{
 }
 
 .title-text{
-  font-family: 'Nanum Gothic Coding', monospace;  
-
+  color:whitesmoke;
+  background-color: rgb(77, 77, 77);
+  padding: 1%;
+  display: inline-flex;
 }
+
+
 
 @keyframes App-logo-spin {
   from {
@@ -51,7 +88,7 @@ body{
 
 .logo {
   height:110px;
-  padding-right:3%;
-  padding-bottom:3%;
-  padding-top:3%;
+  padding: 3%;
+  display: inline-flex;
+  
 }

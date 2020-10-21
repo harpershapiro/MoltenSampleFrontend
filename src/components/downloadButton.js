@@ -22,7 +22,7 @@ export default class DownloadButton extends Component{
     render(){
         return(
             <div>
-                <button onClick={this.download}>Download</button>
+                <button type="button" className="btn-primary" onClick={this.download}>Download</button>
             </div>
         )
     }

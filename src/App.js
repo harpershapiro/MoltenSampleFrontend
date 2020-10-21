@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {hasRole, isAuth,loginUser} from "./auth.js"
 import {userContext} from "./userContext.js"
 import logo from "./images/logo_test.png"
+import logotext from "./images/moltensampleimprinttext.png"
 
 //Main Components
 import Home from "./components/home.component.js";
@@ -57,14 +58,9 @@ class App extends Component {
       <Router>
         <div>
         <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet"/>           
-        <nav className="navbar" id="sidebar">
-            <div>
-              <h2 className="title-text">
-                <img className="logo" src={logo}></img>
-                Molten Sample Imprint
-              </h2> 
-            </div>
-
+        <nav className="navbar header" id="sidebar">
+              <img src={logotext}></img>
+            
             {/*LINKS*/}
             <Link to="/">
               Home

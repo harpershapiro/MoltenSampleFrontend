@@ -53,13 +53,19 @@ export default class Post extends Component {
 
     render(){
         return(
-            <div className="jumbotron">
-                <h1>{this.props.post.post_title}</h1>
-                <h3>{this.props.post.post_submitter}</h3>
-                <p>{this.props.post.post_desc}</p>
-                <img src={this.state.imageUrl}></img>
-                {isAuth(this.props.user) && hasRole(this.props.user,['admin']) && <button onClick={this.deletePost}>Delete</button>}
-                <DownloadButton fileUrl={this.state.packUrl} fileName={this.props.post.post_title.concat('.',this.props.post.pack_ext)} />
+            <div className="card" align="center">
+                <img className="card-img-top" src={this.state.imageUrl}></img>
+                <div className="card-body">
+                    <h1 className="display-4">{this.props.post.post_title}</h1>
+                    <h3>by {this.props.post.post_submitter}</h3>
+                    <p>{this.props.post.post_desc}</p>
+
+                    <DownloadButton fileUrl={this.state.packUrl} fileName={this.props.post.post_title.concat('.',this.props.post.pack_ext)} />
+
+                    {isAuth(this.props.user) && hasRole(this.props.user,['admin']) && 
+                    <button type="button" className="btn-secondary" onClick={this.deletePost}>Delete</button>}
+                </div>
+
             </div>
         );
     }
