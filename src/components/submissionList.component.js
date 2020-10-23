@@ -7,9 +7,7 @@ export default class SubmissionList extends Component {
     constructor(props){
         super(props);
 
-        this.state = {submissions: [],
-                      images: []   
-        };
+        this.state = {submissions: [] };
 
         this.submissionDeleted = this.submissionDeleted.bind(this);
     }
@@ -17,8 +15,7 @@ export default class SubmissionList extends Component {
     componentDidMount(){
         axios.get(API_PATH.concat('/submissions'))
             .then(res => {
-                this.setState({submissions: res.data,
-                               images: res.data //makes images array have same length as submissions
+                this.setState({submissions: res.data //forces image array to have same length as submissions
                 });
                 //this.getImageUrls();
             })
@@ -30,7 +27,7 @@ export default class SubmissionList extends Component {
     submissionDeleted(subId){
         //update state: delete item from subs with id subId
         var oldSubs = this.state.submissions;
-        var newSubs = oldSubs.filter(sub=>{
+        var newSubs = oldSubs.filter((sub)=>{
             if(sub._id == subId){
                 return false;
             } else {

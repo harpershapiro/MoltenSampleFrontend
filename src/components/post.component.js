@@ -21,7 +21,7 @@ export default class Post extends Component {
 
     componentDidMount(){
         this.fetchImage(this.props.post.post_url.concat('.',this.props.post.img_ext));
-        //set full pack url
+        // //set full pack url
         let fullPackUrl = this.props.post.post_url.concat('.',this.props.post.pack_ext);
         this.setState({packUrl: fullPackUrl});
     }
@@ -52,13 +52,19 @@ export default class Post extends Component {
     }
 
     render(){
+        //set full pack url
+        //var fullPackUrl = this.props.post.post_url.concat('.',this.props.post.pack_ext);
+        //this.setState({packUrl: fullPackUrl});
         return(
             <div className="card" align="center">
-                <img className="card-img-top" src={this.state.imageUrl}></img>
+                <div >
+                    <img className="card-img-top" src={this.state.imageUrl}></img>
+                </div>
                 <div className="card-body">
                     <h1 className="display-4">{this.props.post.post_title}</h1>
                     <h3>by {this.props.post.post_submitter}</h3>
                     <p>{this.props.post.post_desc}</p>
+                    <p>size: {this.props.post.post_size} bytes</p>
 
                     <DownloadButton fileUrl={this.state.packUrl} fileName={this.props.post.post_title.concat('.',this.props.post.pack_ext)} />
 

@@ -39,6 +39,31 @@ body{
 
 .card-img-top{
   border-radius: 0px;
+  width: 100%;
+  height: 25vw;
+  object-fit: cover;
+}
+
+/*wrapper to maintain card image height */
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.wrapper img {
+  width: auto;
+  height: 200%;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
 }
 
 .post-icon{

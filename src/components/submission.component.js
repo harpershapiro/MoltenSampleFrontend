@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import DownloadButton from "./downloadButton.js";
 import {API_PATH} from "../config"
+//const path = require('path');
+//require(path.join(__dirname, 'node_modules', 'filesize', 'lib', 'filesize.es6.js'));
+import filesize from 'filesize'
 
 export default class Submission extends Component {
     constructor(props){
@@ -50,7 +53,8 @@ export default class Submission extends Component {
             post_submitter: this.props.sub.submission_user,
             post_accepter: "default",
             post_title: this.props.sub.submission_title,
-            post_desc: this.props.sub.submission_desc
+            post_desc: this.props.sub.submission_desc,
+            post_size: this.props.sub.submission_size
         }        
 
         axios.post(API_PATH.concat('/posts/add'),newPost)
@@ -75,41 +79,21 @@ export default class Submission extends Component {
             })
     }
 
-    // addPostToDB(){
-
-    // }
-
-
-    // render(){
-    //     //var imageUrl=this.fetchImage(this.props.sub.submission_img_url);
-    //     return(
-    //         <div>
-    //         <tr>    
-    //                 <td>
-    //                     <button onClick={this.makePost}>Post</button>
-    //                     <button onClick={this.deleteSub}>Delete</button>
-    //                 </td>          
-    //                 <td><h1>{this.props.sub.submission_title}</h1></td>
-    //                 <td>{this.props.sub.submission_desc}</td>
-    //                 <td>{this.props.sub.img_ext}</td>
-    //                 <td>{this.props.sub.pack_ext}</td>
-    //                 <td>{this.props.sub.submission_user}</td>
-    //                 <td>{this.props.sub.submission_date}</td>
-    //                 <img style={{height:"300px"}} src={this.state.imageUrl} />
-    //         </tr>
-    //         </div>
-
-    //     );
-    // }
 
     render(){
+        //var subsize = this.props.sub.submission_size;
+        //this.fetchImage((this.props.sub.submission_url).concat('.',this.props.sub.img_ext));
+        var subsizePretty = filesize(this.props.sub.submission_size);
         return(
             <div className="card" align="center">
-                <img className="card-img-top" src={this.state.imageUrl}></img>
+                <div>
+                    <img className="card-img-top" src={this.state.imageUrl}></img>
+                </div>
                 <div className="card-body">
                     <h1 className="display-4">{this.props.sub.submission_title}</h1>
                     <h3>by {this.props.sub.submission_user}</h3>
                     <p>{this.props.sub.submission_desc}</p>
+                    <p>size: {subsizePretty} bytes</p>
 
                     <DownloadButton fileUrl={this.state.packUrl} fileName={this.props.sub.submission_title.concat('.',this.props.sub.pack_ext)} />
                     <button type="button" className="btn-secondary" onClick={this.deleteSub}>Delete</button>

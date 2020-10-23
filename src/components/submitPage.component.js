@@ -22,6 +22,7 @@ export default class SubmitPage extends Component {
             submission_user: this.props.user.user_name,
             submission_date: '',
             submission_desc: '',
+            submission_size: 0
         };
 
 
@@ -83,10 +84,12 @@ export default class SubmitPage extends Component {
         }).then((response) => {
             response.json().then((body) => {
                 //let date = Date.now();
+                console.log("bytes uploaded: " + body.size)
                 this.setState({ ...this.state,
                                 //submission_pack_url: `http://localhost:${BACK_PORT}/${body.file}`,
                                 submission_url: filename,
-                                submission_date: date
+                                submission_date: date,
+                                submission_size: body.size
                             });
             });
         }) //upload image
@@ -117,7 +120,8 @@ export default class SubmitPage extends Component {
             submission_title: this.state.submission_title,
             submission_user: this.state.submission_user,
             submission_date: this.state.submission_date,
-            submission_desc: this.state.submission_desc
+            submission_desc: this.state.submission_desc,
+            submission_size: this.state.submission_size
         }
 
         console.log(newSubmission);
@@ -135,6 +139,7 @@ export default class SubmitPage extends Component {
                     submission_user: '',
                     submission_date: '',
                     submission_desc: '',
+                    submission_size: 0
                 })
                 this.props.history.push("/");
             
