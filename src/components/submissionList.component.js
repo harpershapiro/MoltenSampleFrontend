@@ -24,17 +24,29 @@ export default class SubmissionList extends Component {
             })
     }
 
-    submissionDeleted(subId){
+    submissionDeleted(sub){
         //update state: delete item from subs with id subId
-        var oldSubs = this.state.submissions;
-        var newSubs = oldSubs.filter((sub)=>{
-            if(sub._id == subId){
-                return false;
-            } else {
-                return true;
-            }
-        });
-        this.setState({submissions: newSubs});
+        // var oldSubs = this.state.submissions;
+        // var newSubs = oldSubs.filter((sub)=>{
+        //     if(sub._id == subId){
+        //         return false;
+        //     } else {
+        //         return true;
+        //     }
+        // });
+        //this.setState({submissions: newSubs});
+        
+        //TODO: Delete image and pack from filesystem
+        let imageString = '/files/deleteImage/'+sub.submission_url+'.'+sub.img_ext
+        let packString = '/files/deletePack/'+sub.submission_url+'.'+sub.pack_ext
+
+        console.log("sending delete to " + API_PATH.concat(imageString));
+        axios.delete(API_PATH.concat(imageString))
+            .then(axios.delete(API_PATH.concat(packString))
+            .then((res) => window.location.reload(false)))
+        
+            .catch(e=> console.log(e))
+
     }
 
 

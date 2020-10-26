@@ -59,7 +59,9 @@ class App extends Component {
         <div>
         <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet"/>           
         <nav className="navbar header" id="sidebar">
+          <Link to="/">
               <img src={logotext}></img>
+          </Link>
             
             {/*LINKS*/}
             <Link to="/">

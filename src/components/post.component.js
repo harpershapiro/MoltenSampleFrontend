@@ -3,6 +3,8 @@ import axios from 'axios';
 import {hasRole, isAuth} from "../auth.js";
 import DownloadButton from "./downloadButton.js";
 import {API_PATH} from "../config"
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from 'react-confirm-alert'; // Import
 
 
 export default class Post extends Component {
@@ -13,6 +15,7 @@ export default class Post extends Component {
                     packUrl: ''}
 
         this.deletePost=this.deletePost.bind(this);
+        this.deleteConfirm=this.deleteConfirm.bind(this);
     }
 
     hidePost(){
@@ -25,6 +28,7 @@ export default class Post extends Component {
         let fullPackUrl = this.props.post.post_url.concat('.',this.props.post.pack_ext);
         this.setState({packUrl: fullPackUrl});
     }
+
 
     fetchImage(urlFromPost) {
         //const imageName = 'daffycolorado.JPG'
@@ -42,12 +46,34 @@ export default class Post extends Component {
         })
     }
 
+    deleteConfirm() {
+        confirmAlert({
+          title: 'Confirm to submit',
+          message: 'Are you sure to do this.',
+          buttons: [
+            {
+              label: 'Yes',
+              onClick: () => this.deletePost()
+            },
+            {
+              label: 'No',
+              onClick: () => {}
+            }
+          ]
+        });
+      };
+
     deletePost(){
-        const postId = this.props.post._id;
+        const post = this.props.post;
+        const postId = post._id;
+        //this.fetchImage(post.post_url.concat('.',post.img_ext));
+        // //set full pack url
+        //let fullPackUrl = post.post_url.concat('.',post.pack_ext);
+        //this.setState({packUrl: fullPackUrl});
         //TODO: CONFIRM WINDOW
         axios.delete(API_PATH.concat(`/posts/delete/${postId}`))
             .then((res)=>{
-                this.props.postDeleted(postId);
+                this.props.postDeleted(post);
             })
     }
 
@@ -69,7 +95,7 @@ export default class Post extends Component {
                     <DownloadButton fileUrl={this.state.packUrl} fileName={this.props.post.post_title.concat('.',this.props.post.pack_ext)} />
 
                     {isAuth(this.props.user) && hasRole(this.props.user,['admin']) && 
-                    <button type="button" className="btn-secondary" onClick={this.deletePost}>Delete</button>}
+                    <button type="button" className="btn-secondary" onClick={this.deleteConfirm}>Delete</button>}
                 </div>
 
             </div>

@@ -30,6 +30,12 @@ body{
   margin-bottom: 4%;
 }
 
+.header a{
+  color: black;
+  padding-bottom: 4%;
+  font-style: italic;
+}
+
 .card{
   width: 45%;
   margin: 2%;

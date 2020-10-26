@@ -30,17 +30,28 @@ export default class Home extends Component {
             })
     }
 
-    postDeleted(postId){
+    postDeleted(post){
         //update state: delete item from posts with id postId
-        var oldPosts = this.state.posts;
-        var newPosts = oldPosts.filter(post=>{
-            if(post._id == postId){
-                return false;
-            } else {
-                return true;
-            }
-        });
-        this.setState({posts: newPosts});
+        // var oldPosts = this.state.posts;
+        // var newPosts = oldPosts.filter(post=>{
+        //     if(post._id == postId){
+        //         return false;
+        //     } else {
+        //         return true;
+        //     }
+        // });
+        // this.setState({posts: newPosts});
+
+        //TODO: Delete image and pack from filesystem
+        let imageString = '/files/deleteImage/'+post.post_url+'.'+post.img_ext
+        let packString = '/files/deletePack/'+post.post_url+'.'+post.pack_ext
+
+        console.log("sending delete to " + API_PATH.concat(imageString));
+        axios.delete(API_PATH.concat(imageString))
+            .then(axios.delete(API_PATH.concat(packString))
+            .then((res) => window.location.reload(false)))
+        
+            .catch(e=> console.log(e))
     }
 
     postList(){

@@ -62,6 +62,8 @@ export default class SubmitPage extends Component {
             img_ext: `${imgExt}`,
             pack_ext: `${packExt}`
         })
+
+        //Create unique file location
         var date = Date.now();
         var filename = md5(date.toString());
         
