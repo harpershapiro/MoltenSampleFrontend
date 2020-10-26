@@ -13,16 +13,13 @@
   }
 } */
 
-
-
-
-body{
-  padding-left:3%;
-  padding-right:3%;
-  background-color:whitesmoke;
+body {
+  padding-left: 3%;
+  padding-right: 3%;
+  background-color: whitesmoke;
 }
 
-.header{
+.header {
   background-image: url("./images/flowinglavabw.gif");
   background-repeat: no-repeat;
   background-size: contain;
@@ -30,20 +27,20 @@ body{
   margin-bottom: 4%;
 }
 
-.header a{
+.header a {
   color: black;
   padding-bottom: 4%;
   font-style: italic;
 }
 
-.card{
+.card {
   width: 45%;
   margin: 2%;
   display: inline-flex;
   border-radius: 0px;
 }
 
-.card-img-top{
+.card-img-top {
   border-radius: 0px;
   width: 100%;
   height: 25vw;
@@ -57,7 +54,7 @@ body{
 }
 
 .wrapper:after {
-  content: '';
+  content: "";
   display: block;
   padding-top: 100%;
 }
@@ -72,17 +69,15 @@ body{
   transform: translateX(-50%);
 }
 
-.post-icon{
-  width:500px;
+.post-icon {
+  width: 500px;
   display: flex;
 }
 
-button{
+button {
   margin-top: 3%;
   width: 150px;
 }
-
-
 
 .App-header {
   background-color: #282c34;
@@ -99,14 +94,12 @@ button{
   color: #61dafb;
 }
 
-.title-text{
-  color:whitesmoke;
+.title-text {
+  color: whitesmoke;
   background-color: rgb(77, 77, 77);
   padding: 1%;
   display: inline-flex;
 }
-
-
 
 @keyframes App-logo-spin {
   from {
@@ -118,8 +111,7 @@ button{
 }
 
 .logo {
-  height:110px;
+  height: 110px;
   padding: 3%;
   display: inline-flex;
-  
 }
