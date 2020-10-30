@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import { hasRole, isAuth } from "../auth.js";
 import DownloadButton from "./downloadButton.js";
-import { API_PATH } from "../config";
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { API_PATH, FILE_LOCATION } from "../config";
+import "react-confirm-alert/src/react-confirm-alert.css"; 
+import { confirmAlert } from "react-confirm-alert"; 
+import filesize from "filesize";
+
 
 export default class Post extends Component {
   constructor(props) {
@@ -24,7 +26,8 @@ export default class Post extends Component {
     this.fetchImage(
       this.props.post.post_url.concat(".", this.props.post.img_ext)
     );
-    // //set full pack url
+    
+    //get URL for download button
     let fullPackUrl = this.props.post.post_url.concat(
       ".",
       this.props.post.pack_ext
@@ -35,7 +38,7 @@ export default class Post extends Component {
   fetchImage(urlFromPost) {
     //const imageName = 'daffycolorado.JPG'
     const imageName = urlFromPost.split("/").slice(-1)[0];
-    const url = API_PATH.concat(`/files/fetchImage/${imageName}`);
+    const url = API_PATH.concat(`/files/fetchImage/${FILE_LOCATION}/${imageName}`);
     axios.get(url, { responseType: "blob" }).then((res) => {
       //console.log(`ImageData: ${res.data} `)
       //var file = new File( res.data, "image", { type: "image/jpeg" } );
@@ -49,8 +52,8 @@ export default class Post extends Component {
 
   deleteConfirm() {
     confirmAlert({
-      title: "Confirm to submit",
-      message: "Are you sure to do this.",
+      title: "Confirm to delete.",
+      message: "Are you sure?",
       buttons: [
         {
           label: "Yes",
@@ -67,11 +70,7 @@ export default class Post extends Component {
   deletePost() {
     const post = this.props.post;
     const postId = post._id;
-    //this.fetchImage(post.post_url.concat('.',post.img_ext));
-    // //set full pack url
-    //let fullPackUrl = post.post_url.concat('.',post.pack_ext);
-    //this.setState({packUrl: fullPackUrl});
-    //TODO: CONFIRM WINDOW
+
     axios.delete(API_PATH.concat(`/posts/delete/${postId}`)).then((res) => {
       this.props.postDeleted(post);
     });
@@ -81,6 +80,7 @@ export default class Post extends Component {
     //set full pack url
     //var fullPackUrl = this.props.post.post_url.concat('.',this.props.post.pack_ext);
     //this.setState({packUrl: fullPackUrl});
+    var postsizePretty = filesize(this.props.post.post_size);
     return (
       <div className="card" align="center">
         <div>
@@ -90,7 +90,7 @@ export default class Post extends Component {
           <h1 className="display-4">{this.props.post.post_title}</h1>
           <h3>by {this.props.post.post_submitter}</h3>
           <p>{this.props.post.post_desc}</p>
-          <p>size: {this.props.post.post_size} bytes</p>
+          <p>size: {postsizePretty}</p>
 
           <DownloadButton
             fileUrl={this.state.packUrl}

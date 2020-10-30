@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Submission from "./submission.component.js";
 import axios from "axios";
-import { API_PATH } from "../config";
+import { API_PATH, FILE_LOCATION } from "../config";
 
 export default class SubmissionList extends Component {
   constructor(props) {
@@ -28,9 +28,9 @@ export default class SubmissionList extends Component {
 
   submissionDeleted(sub) {
     let imageString =
-      "/files/deleteImage/" + sub.submission_url + "." + sub.img_ext;
+      `/files/deleteImage/${FILE_LOCATION}/` + sub.submission_url + "." + sub.img_ext;
     let packString =
-      "/files/deletePack/" + sub.submission_url + "." + sub.pack_ext;
+      `/files/deletePack/${FILE_LOCATION}/` + sub.submission_url + "." + sub.pack_ext;
 
     //delete resources and refresh page
     axios

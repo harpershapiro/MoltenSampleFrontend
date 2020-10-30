@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import fileDownload from "js-file-download";
-import { API_PATH } from "../config";
+import { API_PATH, FILE_LOCATION } from "../config";
 
 export default class DownloadButton extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class DownloadButton extends Component {
 
   download() {
     axios
-      .get(API_PATH.concat(`/files/downloadPack/${this.props.fileUrl}`), {
+      .get(API_PATH.concat(`/files/downloadPack/${FILE_LOCATION}/${this.props.fileUrl}`), {
         responseType: "blob",
       })
       //axios.get(`http://localhost:${BACK_PORT}/downloadPack/spacescreen.mp3`, {responseType: 'blob'})

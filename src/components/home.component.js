@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Post from "./post.component.js";
 import axios from "axios";
-import { API_PATH } from "../config";
-//const API_PATH = (process.env.NODE_ENV==="development" ? DEV_API_PATH : PROD_API_PATH)
-//const API_PATH = (process.env.NODE_ENV==="development" ? "http://localhost:4000/molten" : process.env.API_PATH)
+import { API_PATH, FILE_LOCATION } from "../config";
+
 
 export default class Home extends Component {
   constructor(props) {
@@ -29,11 +28,10 @@ export default class Home extends Component {
 
   postDeleted(post) {
     let imageString =
-      "/files/deleteImage/" + post.post_url + "." + post.img_ext;
-    let packString = "/files/deletePack/" + post.post_url + "." + post.pack_ext;
+      `/files/deleteImage/${FILE_LOCATION}/` + post.post_url + "." + post.img_ext;
+    let packString = `/files/deletePack/${FILE_LOCATION}/` + post.post_url + "." + post.pack_ext;
 
     //delete resources and refresh
-    console.log("sending delete to " + API_PATH.concat(imageString));
     axios
       .delete(API_PATH.concat(imageString))
       .then(

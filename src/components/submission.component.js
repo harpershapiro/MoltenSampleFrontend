@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DownloadButton from "./downloadButton.js";
-import { API_PATH } from "../config";
+import { API_PATH, FILE_LOCATION } from "../config";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { confirmAlert } from "react-confirm-alert"; // Import
 
@@ -28,11 +28,18 @@ export default class Submission extends Component {
     this.fetchImage(
       this.props.sub.submission_url.concat(".", this.props.sub.img_ext)
     );
+    
+    //get URL for download button
+    let fullPackUrl = this.props.sub.submission_url.concat(
+      ".",
+      this.props.sub.pack_ext
+    );
+    this.setState({ packUrl: fullPackUrl });
   }
 
   //refactor to a new js file if this is working
   fetchImage(urlFromSub) {
-    const url = API_PATH.concat(`/files/fetchImage/${urlFromSub}`);
+    const url = API_PATH.concat(`/files/fetchImage/${FILE_LOCATION}/${urlFromSub}`);
     axios.get(url, { responseType: "blob" }).then((res) => {
       //console.log(`ImageData: ${res.data} `)
       //var file = new File( res.data, "image", { type: "image/jpeg" } );
@@ -73,8 +80,8 @@ export default class Submission extends Component {
 
   deleteConfirm() {
     confirmAlert({
-      title: "Confirm to submit",
-      message: "Are you sure to do this.",
+      title: "Confirm to delete.",
+      message: "Are you sure?",
       buttons: [
         {
           label: "Yes",
@@ -112,7 +119,7 @@ export default class Submission extends Component {
           <h1 className="display-4">{this.props.sub.submission_title}</h1>
           <h3>by {this.props.sub.submission_user}</h3>
           <p>{this.props.sub.submission_desc}</p>
-          <p>size: {subsizePretty} bytes</p>
+          <p>size: {subsizePretty}</p>
 
           <DownloadButton
             fileUrl={this.state.packUrl}

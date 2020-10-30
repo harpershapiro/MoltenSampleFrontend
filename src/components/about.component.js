@@ -5,7 +5,7 @@ export default class About extends Component {
     return (
       <div>
         <h1> About </h1>
-        <p>
+        <p className="about-text" align="center">
           We are a sample pack label for producers. Submit a pack of unique
           sounds, we will review it for publishing.
         </p>

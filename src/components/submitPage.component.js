@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { userContext } from "../userContext.js";
-import { API_PATH } from "../config";
+import { API_PATH, FILE_LOCATION } from "../config";
 import cogoToast from "cogo-toast";
 
 var md5 = require("md5");
@@ -84,7 +84,7 @@ export default class SubmitPage extends Component {
     //CONVERT ALL THIS CODE WITH ASYNC/AWAIT
 
     //upload SAMPLE PACK
-    fetch(API_PATH.concat("/files/upload"), {
+    fetch(API_PATH.concat(`/files/upload/${FILE_LOCATION}`), {
       method: "POST",
       body: packData,
     })
@@ -100,7 +100,7 @@ export default class SubmitPage extends Component {
         });
       }) //upload IMAGE
       .then(() =>
-        fetch(API_PATH.concat("/files/upload"), {
+        fetch(API_PATH.concat(`/files/upload/${FILE_LOCATION}`), {
           method: "POST",
           body: imgData,
         }).then((response) => {
