@@ -84,6 +84,8 @@ export default class SubmitPage extends Component {
     //CONVERT ALL THIS CODE WITH ASYNC/AWAIT
 
     //upload SAMPLE PACK
+    //set load overlay until response
+    this.props.setLoadOverlay(true);
     fetch(API_PATH.concat(`/files/upload/${FILE_LOCATION}`), {
       method: "POST",
       body: packData,
@@ -97,6 +99,7 @@ export default class SubmitPage extends Component {
             submission_date: date,
             submission_size: body.size,
           });
+          this.props.setLoadOverlay(false);
         });
       }) //upload IMAGE
       .then(() =>

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 import cogoToast from "cogo-toast";
 import { API_PATH } from "../config";
-//import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 //const API_PATH = (process.env.NODE_ENV==="development" ? DEV_API_PATH : PROD_API_PATH)
 

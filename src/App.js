@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React, { Component, useContext } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import LoadingOverlay from "react-loading-overlay";
 
 //import ""
 import { hasRole, isAuth, loginUser } from "./auth.js";
@@ -28,10 +29,13 @@ class App extends Component {
     //Currently logged in user
     this.state = {
       user: lastUser,
+      loadOverlayActive: false
     };
 
     this.loginUser = this.loginUser.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
+    this.setLoadOverlay = this.setLoadOverlay.bind(this);
+
   }
 
   componentDidMount() {
@@ -52,73 +56,84 @@ class App extends Component {
     this.setState({ user: undefined });
   }
 
+  setLoadOverlay(active){
+    this.setState({loadOverlayActive: active});
+  }
+
   render() {
     return (
-      <Router>
-        <div>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap"
-            rel="stylesheet"
-          />
-          <nav className="navbar header" id="sidebar">
-            <Link to="/">
-              <img src={logotext}></img>
-            </Link>
+      <LoadingOverlay active={this.state.loadOverlayActive} spinner text="Submitting...">
+        <Router>
+          <div>
+            <link
+              href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap"
+              rel="stylesheet"
+            />
+            <nav className="navbar header" id="sidebar">
+              <Link to="/">
+                <img src={logotext}></img>
+              </Link>
 
-            {/*LINKS*/}
-            <Link to="/">Home</Link>
+              {/*LINKS*/}
+              <Link to="/">Home</Link>
 
-            {isAuth(this.state.user) && <Link to="/submit">Submit</Link>}
+              {isAuth(this.state.user) && <Link to="/submit">Submit</Link>}
 
-            {isAuth(this.state.user) && hasRole(this.state.user, ["admin"]) && (
-              <Link to="/submissionList">Submissions</Link>
-            )}
+              {isAuth(this.state.user) &&
+                hasRole(this.state.user, ["admin"]) && (
+                  <Link to="/submissionList">Submissions</Link>
+                )}
 
-            <Link to="/about">About</Link>
+              <Link to="/about">About</Link>
 
-            {!isAuth(this.state.user) && <Link to="/login">Login/Signup</Link>}
+              {!isAuth(this.state.user) && (
+                <Link to="/login">Login/Signup</Link>
+              )}
 
-            {isAuth(this.state.user) && (
-              <div>
-                <h3>{this.state.user.user_name}</h3>
-                <button onClick={this.logoutUser}>Logout</button>
-              </div>
-            )}
-          </nav>
-          {/*ROUTES*/}
-          <Route
-            path="/"
-            exact
-            render={(props) => <Home {...props} user={this.state.user} />}
-          />
+              {isAuth(this.state.user) && (
+                <div>
+                  <h3>{this.state.user.user_name}</h3>
+                  <button onClick={this.logoutUser}>Logout</button>
+                </div>
+              )}
+            </nav>
+            {/*ROUTES*/}
+            <Route
+              path="/"
+              exact
+              render={(props) => <Home {...props} user={this.state.user} />}
+            />
 
-          <Route
-            path="/submit"
-            render={(props) => <SubmitPage {...props} user={this.state.user} />}
-          />
+            <Route
+              path="/submit"
+              render={(props) => (
+                <SubmitPage {...props} user={this.state.user} setLoadOverlay={this.setLoadOverlay} />
+              )}
+            />
 
-          <Route
-            path="/submissionList"
-            render={(props) => (
-              <SubmissionList {...props} user={this.state.user} />
-            )}
-          />
+            <Route
+              path="/submissionList"
+              render={(props) => (
+                <SubmissionList {...props} user={this.state.user} />
+              )}
+            />
 
-          <Route path="/about" component={About} />
-          <Route
-            path="/login"
-            render={(props) => (
-              <AuthForm {...props} type="login" loginUser={this.loginUser} />
-            )}
-          />
-          <Route
-            path="/signup"
-            render={(props) => (
-              <AuthForm {...props} type="signup" loginUser={this.loginUser} />
-            )}
-          />
-        </div>
-      </Router>
+            <Route path="/about" component={About} />
+            <Route
+              path="/login"
+              render={(props) => (
+                <AuthForm {...props} type="login" loginUser={this.loginUser} />
+              )}
+            />
+            <Route
+              path="/signup"
+              render={(props) => (
+                <AuthForm {...props} type="signup" loginUser={this.loginUser} />
+              )}
+            />
+          </div>
+        </Router>
+      </LoadingOverlay>
     );
   }
 }
